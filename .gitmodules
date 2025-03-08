@@ -1,0 +1,15 @@
+[submodule "plugins/OneClick"]
+	path = plugins/OneClick
+	url = https://github.com/SoftagonSistemas/mapacultural-customizer.git
+[submodule "plugins/AdminLoginAsUser"]
+	path = plugins/AdminLoginAsUser
+	url = https://github.com/mapasculturais/plugin-AdminLoginAsUser.git
+[submodule "plugins/MapasBlame"]
+	path = plugins/MapasBlame
+	url = https://github.com/mapasculturais/plugin-MapasBlame.git
+[submodule "plugins/MultipleLocalAuth"]
+	path = plugins/MultipleLocalAuth
+	url = https://github.com/mapasculturais/plugin-MultipleLocalAuth.git
+[submodule "plugins/SpamDetector"]
+	path = plugins/SpamDetector
+	url = https://github.com/mapasculturais/plugin-SpamDetector.git
