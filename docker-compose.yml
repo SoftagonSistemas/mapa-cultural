@@ -8,6 +8,10 @@ services:
       - /dev/null:/var/www/html/index.php
       - ./docker-data/public-files:/var/www/html/files
       - ./docker-data/assets:/var/www/html/assets
+
+       ##### versão com ssl
+    #  - ./docker-data/certs/conf:/etc/letsencrypt
+    #  - ./docker-data/certs/www:/var/www/certbot
     ports:
       - "80:80"
     depends_on:
