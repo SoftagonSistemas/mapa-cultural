@@ -45,7 +45,7 @@ services:
       - redis
 
   redis:
-    image: redis:6
+    image: redis:7
     command: --maxmemory 1256Mb --maxmemory-policy allkeys-lru
     restart: unless-stopped
     volumes:
