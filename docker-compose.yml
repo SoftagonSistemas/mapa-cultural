@@ -1,8 +1,6 @@
 services:
   nginx:
-    build:
-      context: ./
-      dockerfile: docker/nginx/Dockerfile
+    image: erleibiazzio/mapas-oneclick-nginx:1.0.0
     restart: unless-stopped
     volumes:
       - /dev/null:/var/www/html/index.php
@@ -16,11 +14,7 @@ services:
       - mapasculturais
 
   mapasculturais:
-    env_file:
-      - .env
-    build:
-      context: ./
-      dockerfile: docker/Dockerfile
+    image: erleibiazzio/mapas-oneclick:master
     restart: unless-stopped
     volumes:
       - ./.env:/.env
