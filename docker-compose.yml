@@ -1,24 +1,4 @@
 services:
-  nginx:
-    build:
-      context: ./
-      dockerfile: docker/nginx/Dockerfile
-    restart: unless-stopped
-    volumes:
-      - /dev/null:/var/www/html/index.php
-      - ./docker-data/public-files:/var/www/html/files
-      - ./docker-data/assets:/var/www/html/assets
-
-       ##### versão com ssl
-    #  - ./docker-data/certs/conf:/etc/letsencrypt
-    #  - ./docker-data/certs/www:/var/www/certbot
-    ports:
-      - "80:80"
-    depends_on:
-      - mapasculturais
-    links:
-      - mapasculturais
-
   mapasculturais:
     env_file:
       - .env
@@ -36,9 +16,6 @@ services:
       - ./docker-data/logs:/var/www/var/logs
       - ./docker/production/config.d:/var/www/config/prod.d
       - ./docker/common/config.d:/var/www/config/common.d
-    links:
-      - db
-      - redis
     environment:
       - REDIS_CACHE=redis
       - SESSIONS_SAVE_PATH=tcp://redis:6379
@@ -47,6 +24,11 @@ services:
     depends_on:
       - db
       - redis
+    ports:
+      - "80:80"
+    links:
+      - redis
+      - db
 
   redis:
     image: redis:6
