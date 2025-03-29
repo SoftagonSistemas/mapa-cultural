@@ -18,7 +18,11 @@ RUN apt-get update && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+COPY docker/custom/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/nginx.conf etc/nginx/conf.d/default.conf
+COPY docker/custom/entrypoint-custom.sh /tmp/entrypoint-custom.sh
+### FIM DO NGINX
 
 COPY docker/start-application.sh /usr/local/bin/start-application.sh
 RUN chmod +x /usr/local/bin/start-application.sh
