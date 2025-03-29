@@ -26,3 +26,6 @@ if [ "${APP_MODE:-production}" = "development" ]; then
 else
     echo "Modo de produção: ignorando /var/www/dev/start.sh"
 fi
+
+# Continuar com o processo principal
+exec "$@"
