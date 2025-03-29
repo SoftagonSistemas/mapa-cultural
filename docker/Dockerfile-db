@@ -1,0 +1,20 @@
+FROM postgis/postgis:17-3.5-alpine
+
+# Limpeza de arquivos desnecessários para reduzir o tamanho da imagem
+RUN rm -rf /docker-entrypoint-initdb.d/* \
+    && apk update --no-cache \
+    && apk upgrade --no-cache \
+    && rm -rf /var/cache/apk/*
+
+# Copiar apenas os arquivos necessários
+COPY docker/db /docker-entrypoint-initdb.d
+
+# Configuração de variáveis de ambiente para otimização
+ENV POSTGRES_SHARED_BUFFERS=128MB \
+    POSTGRES_WORK_MEM=4MB \
+    POSTGRES_MAINTENANCE_WORK_MEM=64MB \
+    POSTGRES_EFFECTIVE_CACHE_SIZE=512MB \
+    POSTGRES_MAX_CONNECTIONS=100 \
+    POSTGRES_SYNCHRONOUS_COMMIT=off \
+    POSTGRES_CHECKPOINT_COMPLETION_TARGET=0.9 \
+    POSTGRES_WAL_BUFFERS=16MB
