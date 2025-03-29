@@ -28,8 +28,22 @@ Antes de iniciar o projeto, configure o arquivo `.env` com as variáveis de ambi
    - `MAILER_ALWAYSTO`: Endereço de e-mail para sempre enviar cópias.
    - `GOOGLE_RECAPTCHA_SITEKEY`: Chave do site para Google Recaptcha.
    - `GOOGLE_RECAPTCHA_SECRET`: Chave secreta para Google Recaptcha.
-   - `PENDING_PCACHE_RECREATION_INTERVAL`: Intervalo para recriação de cache.
+   - `CACHE_NAMESPACE`: Namespace para cache.
+   - `CACHE_AUTOLOAD`: Tempo de autoload do cache.
+   - `CACHE_ASSETS_URL`: Tempo de cache para URLs de assets.
+   - `CACHE_FILE_URL`: Tempo de cache para URLs de arquivos.
+   - `CACHE_EVENTS`: Tempo de cache para eventos.
+   - `CACHE_SUBSITE_ID`: Tempo de cache para IDs de subsites.
+   - `CACHE_PERMISSIONS`: Tempo de cache para permissões.
+   - `CACHE_REGISTER`: Tempo de cache para registros.
+   - `CACHE_API`: Tempo de cache para a API.
+   - `CACHE_QUOTAS`: Tempo de cache para cotas.
+   - `CACHE_OPPORTUNITY_SUMARY`: Resumo de oportunidades no cache.
+   - `CACHE_API_NOTIFICATION`: Tempo de cache para notificações da API.
+   - `PENDING_PCACHE_RECREATION_INTERVAL`: Intervalo para recriação de cache pendente.
    - `JOBS_INTERVAL`: Intervalo para execução de tarefas.
+   - `NUM_PROCESSES`: Número de processos.
+   - `MC_UPDATES_PROCESSES`: Número de processos para atualizações.
    - `LOGO_IMAGE`: Caminho para o logo da aplicação.
    - `LOGO_HIDELABEL`: Define se o rótulo do logo será ocultado.
    - `SMTP_LOGIN`: Login para o servidor SMTP.
