@@ -21,6 +21,11 @@ RUN apt-get update && \
 COPY docker/custom/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker/custom/entrypoint-custom.sh /tmp/entrypoint-custom.sh
+
+RUN sed -i '/^set/a chown www-data:www-data /var/www/html -R' /entrypoint.sh &&\
+    sed -i '/^set/a /tmp/entrypoint-custom.sh' /entrypoint.sh &&\
+    chmod +x /tmp/entrypoint-custom.sh
+
 ### FIM DO NGINX
 
 COPY docker/start-application.sh /usr/local/bin/start-application.sh
