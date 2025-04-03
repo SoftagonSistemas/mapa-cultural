@@ -22,11 +22,23 @@ COPY docker/custom/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker/custom/entrypoint-custom.sh /tmp/entrypoint-custom.sh
 
-RUN sed -i '/^set/a chown www-data:www-data /var/www/html -R' /entrypoint.sh &&\
-    sed -i '/^set/a /tmp/entrypoint-custom.sh' /entrypoint.sh &&\
-    chmod +x /tmp/entrypoint-custom.sh
-
-### FIM DO NGINX
+### Garantindo que os diretórios existam e tenham as permissões corretas na **build** da imagem
+RUN mkdir -p /var/www/html/assets \
+    /var/www/html/files \
+    /var/www/var/private-files \
+    /var/www/var/saas-files \
+    /var/www/var/logs \
+    /var/www/src/plugins/OneClick/files \
+    /var/www/src/plugins/SpamDetector/files \
+    /var/www/public/assets && \
+    chown -R www-data:www-data /var/www/html/assets \
+    /var/www/html/files \
+    /var/www/var/private-files \
+    /var/www/var/saas-files \
+    /var/www/var/logs \
+    /var/www/src/plugins/OneClick/files \
+    /var/www/src/plugins/SpamDetector/files \
+    /var/www/public/assets
 
 COPY docker/start-application.sh /usr/local/bin/start-application.sh
 RUN chmod +x /usr/local/bin/start-application.sh
