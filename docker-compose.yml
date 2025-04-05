@@ -3,12 +3,10 @@ services:
     image: softagon/mapasculturais:2025-04-05
     restart: unless-stopped
     volumes:
-      - /dev/null:/var/www/html/index.php
       - ./docker-data/assets:/var/www/html/assets
       - ./docker-data/public-files:/var/www/html/files
       - ./docker-data/private-files:/var/www/var/private-files
       - ./docker-data/saas-files:/var/www/var/saas-files
-      - ./docker-data/sessions:/var/www/var/sessions
       - ./docker-data/logs:/var/www/var/logs
       - ./docker/production/config.d:/var/www/config/prod.d
       - ./docker/common/config.d:/var/www/config/common.d
@@ -18,46 +16,29 @@ services:
       - db
       - redis
     environment:
-      - APP_MODE=${APP_MODE}
-      - LOG_LEVEL=${LOG_LEVEL}
-      - LOG_ENABLED=${LOG_ENABLED}
-      - CEP_TOKEN=${CEP_TOKEN}
-      - MAILER_TRANSPORT=${MAILER_TRANSPORT}
-      - MAILER_FROM=${MAILER_FROM}
-      - MAILER_ALWAYSTO=${MAILER_ALWAYSTO}
-      - DB_HOST=${DB_HOST}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
-      - GOOGLE_RECAPTCHA_SITEKEY=${GOOGLE_RECAPTCHA_SITEKEY}
-      - GOOGLE_RECAPTCHA_SECRET=${GOOGLE_RECAPTCHA_SECRET}
-      - PENDING_PCACHE_RECREATION_INTERVAL=${PENDING_PCACHE_RECREATION_INTERVAL}
       - JOBS_INTERVAL=${JOBS_INTERVAL}
-      - LOGO_IMAGE=${LOGO_IMAGE}
-      - LOGO_HIDELABEL=${LOGO_HIDELABEL}
-      - BUILD_ASSETS=${BUILD_ASSETS}
-      - SMTP_LOGIN=${SMTP_LOGIN}
-      - SMTP_PASSWORD=${SMTP_PASSWORD}
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - AUTH_SALT=${AUTH_SALT}
-      - AUTH_GOOGLE_CLIENT_ID=${AUTH_GOOGLE_CLIENT_ID}
-      - AUTH_GOOGLE_CLIENT_SECRET=${AUTH_GOOGLE_CLIENT_SECRET}
+      - PENDING_PCACHE_RECREATION_INTERVAL=${PENDING_PCACHE_RECREATION_INTERVAL}
       - REDIS_CACHE=${REDIS_CACHE}
       - SESSIONS_SAVE_PATH=${SESSIONS_SAVE_PATH}
+      - BUILD_ASSETS=${BUILD_ASSETS}
+      - APP_MODE=${APP_MODE}
+      - DB_HOST=db
+      - DB_NAME=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASS=${POSTGRES_PASSWORD}
+
     depends_on:
       - db
       - redis
 
   redis:
-    image: 	redis:7.4.0-alpine
-    command: --maxmemory 1256Mb --maxmemory-policy allkeys-lru
+    image: redis:7.4.0-alpine
     restart: unless-stopped
     volumes:
       - ./docker-data/sessions:/data
 
   db:
-    image: softagon/mapasculturais-db:2025-04-05
+    image: softagon/mapasculturais-db:latest
     restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-StrongP@ssw0rd!123}
